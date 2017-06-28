@@ -1,7 +1,7 @@
 var express = require('express'),
 		socket = require('socket.io');
 
-	//	app
+
 
 	var app = express();
 
@@ -11,11 +11,9 @@ var express = require('express'),
 
 	});
 
-	//	listen
 
-	var server = app.listen(process.env.PORT || 3000);
+	var server = app.listen(process.env.PORT || 8888);
 
-	//	socket
 
 	var io = socket(server),
 		games = {},
