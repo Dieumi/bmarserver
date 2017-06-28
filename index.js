@@ -1,8 +1,6 @@
 var express = require('express'),
 		socket = require('socket.io');
 
-
-
 	var app = express();
 
 	app.get('/', function(req, res)
