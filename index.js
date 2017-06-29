@@ -5,7 +5,12 @@ var server = require('http').Server(app);
 	var io = require('socket.io')(server),
 		games = {},
 		avatars = ['birdie', 'elephant', 'fishy', 'monkey', 'ram', 'ox', 'piggle', 'whale'];
-  server.listen(3000)
+  server.listen(3000 ,function() {
+
+
+	console.log("Server started port 3000...");
+
+});
   app.get('/', function(req, res)
   {
     res.send('Bomberman server');
