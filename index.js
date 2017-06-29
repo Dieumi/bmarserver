@@ -1,24 +1,19 @@
-var express = require('express'),
-		socket = require('socket.io');
-
-	var app = express();
-
-	app.get('/', function(req, res)
-	{
-		res.send('Bomberman server');
-
-	});
+var app = require('express')();
+var server = require('http').Server(app);
 
 
-	var server = app.listen(process.env.PORT || 8888);
-
-
-	var io = socket(server),
+	var io = require('socket.io')(server),
 		games = {},
 		avatars = ['birdie', 'elephant', 'fishy', 'monkey', 'ram', 'ox', 'piggle', 'whale'];
+  server.listen(3000)
+  app.get('/', function(req, res)
+  {
+    res.send('Bomberman server');
 
+  });
 	io.on('connection', function(socket)
 	{
+    console.log("good")
 		var socketId = socket.id;
 
 		var gameId,
