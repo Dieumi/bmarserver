@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 	var io = require('socket.io')(server),
 		games = {},
 		avatars = ['birdie', 'elephant', 'fishy', 'monkey', 'ram', 'ox', 'piggle', 'whale'];
-  server.listen(process.env.PORT || 3000 ,function() {
+  server.listen(/*process.env.PORT || */3000 ,function() {
 
 
 	console.log("Server started port 3000...");
@@ -23,6 +23,7 @@ var server = require('http').Server(app);
 
 		var gameId,
 			userName;
+
 
 		socket.on('create', function(id, name, avatar, matrix)
 		{
@@ -115,8 +116,16 @@ var server = require('http').Server(app);
 				io.to(id).emit('start', game.matrix);
 			}
 
-		});
 
+		});
+		socket.on('action',function(playername){
+
+
+				io.sockets.emit('action');
+				console.log("action: "+ playername);
+
+
+		})
 		socket.on('move', function(id, player, position)
 		{
 			var game = games[id];
