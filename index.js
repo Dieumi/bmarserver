@@ -48,7 +48,7 @@ var server = require('http').Server(app);
 			userName = name;
 
 			socket.join(id);
-
+      console.log("welcom:"+socketId);
 			socket.emit('welcome', id, player);
 
 		});
@@ -80,7 +80,7 @@ var server = require('http').Server(app);
 
 				socket.join(id);
 
-				socket.emit('joined', player, game);
+				//socket.emit('joined', player, game);
 
 				socket.broadcast.to(id).emit('player-joined', player);
 			}
@@ -119,10 +119,7 @@ var server = require('http').Server(app);
 
 		});
 		socket.on('action',function(playername){
-
-
 				io.sockets.emit('action');
-				console.log("action: "+ playername);
 
 
 		})
@@ -134,8 +131,11 @@ var server = require('http').Server(app);
 
 			game.players.forEach(function(player)
 			{
+
 				if (player.id == socketId)
 				{
+          console.log("socket : " + socketId);
+          console.log("action: "+ player);
 					player.position = position;
 				}
 
@@ -189,6 +189,7 @@ var server = require('http').Server(app);
 					{
 						game.players.forEach(function(player)
 						{
+              console.log(player)
 							if (player.position.x == spot.x && player.position.y == spot.y)
 							{
 								player.alive = false;
