@@ -25,12 +25,13 @@ var server = require('http').Server(app);
 			userName;
 
 
-		socket.on('create', function(id, name, avatar, matrix)
+		socket.on('create', function(id, name, avatar, matrix,idbot)
 		{
 			var player = {
 				id: socketId,
 				name: name,
 				avatar: avatar,
+				idBot:idbot,
 				index: 0,
 				ready: false,
 				alive: true
@@ -53,7 +54,7 @@ var server = require('http').Server(app);
 
 		});
 
-		socket.on('join', function(id, name)
+		socket.on('join', function(id, name,idbot)
 		{
 			var game = games[id];
 
@@ -68,6 +69,7 @@ var server = require('http').Server(app);
 						id: socketId,
 						name: name,
 						avatar: avatar,
+						idBot: idbot,
 						index: pickIndex(game),
 						ready: false,
 						alive: true
