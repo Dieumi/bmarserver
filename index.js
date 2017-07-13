@@ -72,6 +72,7 @@ var server = require('http').Server(app);
 						idBot: idbot,
 						index: pickIndex(game),
 						ready: false,
+						position:{x:8,y:8},
 						alive: true
 					};
 
