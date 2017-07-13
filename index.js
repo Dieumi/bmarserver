@@ -123,7 +123,7 @@ var server = require('http').Server(app);
 		socket.on('action',function(playername){
 			setTimeout(function(){
 						io.sockets.emit('action');
-			}, 1500);
+			}, 3000);
 
 
 		})
