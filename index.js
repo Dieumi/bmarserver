@@ -5,7 +5,7 @@ var server = require('http').Server(app);
 	var io = require('socket.io')(server),
 		games = {},
 		avatars = ['birdie', 'elephant', 'fishy', 'monkey', 'ram', 'ox', 'piggle', 'whale'];
-  server.listen(/*process.env.PORT || */3000 ,function() {
+  server.listen(process.env.PORT || 3000 ,function() {
 
 
 	console.log("Server started port 3000...");
@@ -119,7 +119,9 @@ var server = require('http').Server(app);
 
 		});
 		socket.on('action',function(playername){
-				io.sockets.emit('action');
+			setTimeout(function(){
+						io.sockets.emit('action');
+			}, 1500);
 
 
 		})
@@ -134,8 +136,7 @@ var server = require('http').Server(app);
 
 				if (player.id == socketId)
 				{
-          console.log("socket : " + socketId);
-          console.log("action: "+ player);
+
 					player.position = position;
 				}
 
@@ -145,9 +146,9 @@ var server = require('http').Server(app);
 
 		});
 
-		socket.on('bomb', function(id, position)
+		socket.on('bomb', function(id, position,strength1)
 		{
-			io.to(id).emit('bomb', position);
+			io.to(id).emit('bomb', position,strength1);
 
 			var game = games[id];
 
@@ -156,8 +157,8 @@ var server = require('http').Server(app);
 			if (!game.started) return;
 
 			var bombTimer = 2000,
-				strength = 1;
-
+				strength = strength1;
+			console.log("force : "+ strength)
 			setTimeout(function()
 			{
 				var blown = [
@@ -180,6 +181,22 @@ var server = require('http').Server(app);
 					{
 						x: position.x + strength,
 						y: position.y
+					},
+					{
+						x: position.x,
+						y: position.y - (strength-1)
+					},
+					{
+						x: position.x,
+						y: position.y + (strength-1)
+					},
+					{
+						x: position.x - (strength-1),
+						y: position.y
+					},
+					{
+						x: position.x + (strength-1),
+						y: position.y
 					}
 				];
 
@@ -190,6 +207,7 @@ var server = require('http').Server(app);
 						game.players.forEach(function(player)
 						{
               console.log(player)
+							console.log(spot)
 							if (player.position.x == spot.x && player.position.y == spot.y)
 							{
 								player.alive = false;
@@ -311,6 +329,7 @@ var server = require('http').Server(app);
 				if (empty.indexOf(x + ' ' + y) > -1)
 				{
 					type = 'empty';
+
 				}
 
 				matrix[x][y] = { type: type };
