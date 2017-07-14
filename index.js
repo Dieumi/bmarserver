@@ -32,6 +32,7 @@ var server = require('http').Server(app);
 				name: name,
 				avatar: avatar,
 				idBot:idbot,
+				position:{x:0,y:0},
 				index: 0,
 				ready: false,
 				alive: true
@@ -322,11 +323,11 @@ var server = require('http').Server(app);
 
 				if (x % 2 == 1 && y % 2 == 1)
 				{
-					type = 'pillar';
+					type = 'empty';
 				}
 				else
 				{
-					type = Math.floor(Math.random() * 10) > 1 ? 'normal' : 'empty';
+					type = Math.floor(Math.random() * 10) > 1 ? 'empty' : 'empty';
 				}
 
 				if (empty.indexOf(x + ' ' + y) > -1)
