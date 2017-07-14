@@ -162,47 +162,72 @@ var server = require('http').Server(app);
 
 			var bombTimer = 2000,
 				strength = strength1;
-			console.log("force : "+ strength)
+
 			setTimeout(function()
 			{
-				var blown = [
-					{
-						x: position.x,
-						y: position.y
-					},
-					{
-						x: position.x,
-						y: position.y - strength
-					},
-					{
-						x: position.x,
-						y: position.y + strength
-					},
-					{
-						x: position.x - strength,
-						y: position.y
-					},
-					{
-						x: position.x + strength,
-						y: position.y
-					},
-					{
-						x: position.x,
-						y: position.y - (strength-1)
-					},
-					{
-						x: position.x,
-						y: position.y + (strength-1)
-					},
-					{
-						x: position.x - (strength-1),
-						y: position.y
-					},
-					{
-						x: position.x + (strength-1),
-						y: position.y
-					}
-				];
+				if(strength==1){
+					var blown = [
+						{
+							x: position.x,
+							y: position.y
+						},
+						{
+							x: position.x,
+							y: position.y - strength
+						},
+						{
+							x: position.x,
+							y: position.y + strength
+						},
+						{
+							x: position.x - strength,
+							y: position.y
+						},
+						{
+							x: position.x + strength,
+							y: position.y
+						}];
+				}else{
+					var blown = [
+						{
+							x: position.x,
+							y: position.y
+						},
+						{
+							x: position.x,
+							y: position.y - strength
+						},
+						{
+							x: position.x,
+							y: position.y + strength
+						},
+						{
+							x: position.x - strength,
+							y: position.y
+						},
+						{
+							x: position.x + strength,
+							y: position.y
+						}	,
+						{
+							x: position.x,
+							y: position.y - (strength-1)
+						},
+						{
+							x: position.x,
+							y: position.y + (strength-1)
+						},
+						{
+							x: position.x - (strength-1),
+							y: position.y
+						},
+						{
+							x: position.x + (strength-1),
+							y: position.y
+						}
+					];
+				}
+
 
 				blown.forEach(function(spot)
 				{
