@@ -323,11 +323,11 @@ var server = require('http').Server(app);
 
 				if (x % 2 == 1 && y % 2 == 1)
 				{
-					type = 'empty';
+					type = 'pillar';
 				}
 				else
 				{
-					type = Math.floor(Math.random() * 10) > 1 ? 'empty' : 'empty';
+					type = Math.floor(Math.random() * 10) > 1 ? 'normal' : 'empty';
 				}
 
 				if (empty.indexOf(x + ' ' + y) > -1)
