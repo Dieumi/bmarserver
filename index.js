@@ -62,8 +62,20 @@ var server = require('http').Server(app);
 			if (!game) return socket.emit('game-not-found');
 
 			if (game.started) return socket.emit('game-started');
+			switch (game.players.length) {
+				case 1: var position1 = {x:0,y:0};
 
-			if (game && game.players.length <= 4)
+					break;
+				case 2 : var position1 = {x:8,y:8};
+					break;
+				case 3 : var position1 = {x:0,y:8};
+					break;
+				case 4 : var position1 = {x:8,y:0};
+					break;
+				default:
+
+			}
+			if (game && game.players.length == 1)
 			{
 				var avatar = pickAvatar(game),
 					player = {
@@ -73,7 +85,7 @@ var server = require('http').Server(app);
 						idBot: idbot,
 						index: pickIndex(game),
 						ready: false,
-						position:{x:8,y:8},
+						position:position1,
 						alive: true
 					};
 
