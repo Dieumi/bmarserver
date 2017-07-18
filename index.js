@@ -63,14 +63,13 @@ var server = require('http').Server(app);
 
 			if (game.started) return socket.emit('game-started');
 			switch (game.players.length) {
-				case 1: var position1 = {x:0,y:0};
-
+				case 0: var position1 = {x:0,y:0};
 					break;
-				case 2 : var position1 = {x:8,y:8};
+				case 1 : var position1 = {x:8,y:8};
 					break;
-				case 3 : var position1 = {x:0,y:8};
+				case 2 : var position1 = {x:0,y:8};
 					break;
-				case 4 : var position1 = {x:8,y:0};
+				case 3 : var position1 = {x:8,y:0};
 					break;
 				default:
 
