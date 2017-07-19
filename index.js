@@ -28,7 +28,7 @@ var testing;
 		socket.on('create', function(id, name, avatar, matrix,idbot,test)
 		{
 			gameEtat=true;
-			var testing=test;
+		 	testing=test;
 			var player = {
 				id: socketId,
 				name: name,
@@ -52,7 +52,7 @@ var testing;
 			userName = name;
 
 			socket.join(id);
-      console.log("welcom:"+socketId);
+
 			socket.emit('welcome', id, player);
 
 		});
@@ -248,8 +248,7 @@ var testing;
 					{
 						game.players.forEach(function(player)
 						{
-              console.log(player)
-							console.log(spot)
+
 							if (player.position.x == spot.x && player.position.y == spot.y)
 							{
 								player.alive = false;
@@ -261,7 +260,7 @@ var testing;
 					}
 
 				});
-
+				setTimeout(function(){
 				var totalAlive = 0,
 					winner;
 
@@ -275,12 +274,16 @@ var testing;
 					}
 
 				});
-
+				if(winner==null){
+					io.to(id).emit('win', null);
+				};
 				if (totalAlive == 1 )
 				{
-					gameEtat=false;
+
+
 					io.to(id).emit('win', winner);
-				}
+					};
+				}, 750);
 
 			}, bombTimer);
 
@@ -295,9 +298,14 @@ var testing;
 			var game = games[gameId];
 
 			if (!game) return;
+				console.log(testing);
 			if(testing==true){
+
+
+
 			if(game.players[0].alive==true && game.players[1].alive==true ){
-				console.log(	 game.players);
+				console.log("leaver");
+
 
 						rp({
 							url:"http://localhost:8888/left",
