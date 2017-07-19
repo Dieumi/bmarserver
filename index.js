@@ -296,7 +296,7 @@ var rp = require('request-promise');
 				console.log(	 game.players);
 
 						rp({
-							url:"http://localhost:8888/left",
+							url:"https://bomberbot1dev.herokuapp.com/left",
 							method: "POST",
 							headers: {
 									'Content-Type': 'application/json'
