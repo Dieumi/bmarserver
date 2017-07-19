@@ -135,9 +135,9 @@ var testing;
 
 
 		});
-		socket.on('action',function(playername){
+		socket.on('action',function(id,playername){
 			setTimeout(function(){
-						io.sockets.emit('action');
+					io.to(id).emit('action');
 			},750);
 
 
