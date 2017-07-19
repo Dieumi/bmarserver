@@ -1,6 +1,6 @@
 var app = require('express')();
 var server = require('http').Server(app);
-
+var rp = require('request-promise');
 
 	var io = require('socket.io')(server),
 		games = {},
@@ -136,7 +136,7 @@ var server = require('http').Server(app);
 		socket.on('action',function(playername){
 			setTimeout(function(){
 						io.sockets.emit('action');
-			},1500);
+			},750);
 
 
 		})
@@ -171,7 +171,7 @@ var server = require('http').Server(app);
 
 			if (!game.started) return;
 
-			var bombTimer = 8000,
+			var bombTimer = 4000,
 				strength = strength1;
 
 			setTimeout(function()
@@ -285,6 +285,7 @@ var server = require('http').Server(app);
 
 		socket.on('disconnect', function()
 		{
+			console.log("disconnect");
 			if (!gameId) return;
 
 			var game = games[gameId];
@@ -296,8 +297,18 @@ var server = require('http').Server(app);
 				if (player.id == socketId)
 				{
 					this.splice(index, 1);
+					rp({
+						url:"http://localhost:8888/left",
+						method: "POST",
+						headers: {
+								'Content-Type': 'application/json'
+						},
+						json: {
 
-					socket.broadcast.to(gameId).emit('left', player.id);
+								"idLoose": player.idBot
+
+						}
+				})
 				}
 
 			}, game.players);
