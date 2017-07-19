@@ -1,7 +1,7 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var rp = require('request-promise');
-
+var testing;
 	var io = require('socket.io')(server),
 		games = {},
 		avatars = ['birdie', 'elephant', 'fishy', 'monkey', 'ram', 'ox', 'piggle', 'whale'];
@@ -20,13 +20,15 @@ var rp = require('request-promise');
 	{
     console.log("good")
 		var socketId = socket.id;
-
+		var gameEtat;
 		var gameId,
 			userName;
 
 
-		socket.on('create', function(id, name, avatar, matrix,idbot)
+		socket.on('create', function(id, name, avatar, matrix,idbot,test)
 		{
+			gameEtat=true;
+			var testing=test;
 			var player = {
 				id: socketId,
 				name: name,
@@ -171,7 +173,7 @@ var rp = require('request-promise');
 
 			if (!game.started) return;
 
-			var bombTimer = 4000,
+			var bombTimer = 3500,
 				strength = strength1;
 
 			setTimeout(function()
@@ -274,8 +276,9 @@ var rp = require('request-promise');
 
 				});
 
-				if (totalAlive == 1)
+				if (totalAlive == 1 )
 				{
+					gameEtat=false;
 					io.to(id).emit('win', winner);
 				}
 
@@ -292,11 +295,12 @@ var rp = require('request-promise');
 			var game = games[gameId];
 
 			if (!game) return;
+			if(testing==true){
 			if(game.players[0].alive==true && game.players[1].alive==true ){
 				console.log(	 game.players);
 
 						rp({
-							url:"https://bomberbot1dev.herokuapp.com/left",
+							url:"http://localhost:8888/left",
 							method: "POST",
 							headers: {
 									'Content-Type': 'application/json'
@@ -311,7 +315,7 @@ var rp = require('request-promise');
 	         })
 			}
 
-
+		}
 
 
 
