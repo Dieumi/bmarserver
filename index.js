@@ -274,12 +274,14 @@ var testing;
 					}
 
 				});
-				if(winner==null){
+				if(winner==null && gameEtat==true){
+					gameEtat=false;
+
 					io.to(id).emit('win', null);
 				};
-				if (totalAlive == 1 )
+				if (totalAlive == 1 && gameEtat==true)
 				{
-
+					gameEtat=false;
 
 					io.to(id).emit('win', winner);
 					};
