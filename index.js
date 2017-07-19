@@ -171,7 +171,7 @@ var server = require('http').Server(app);
 
 			if (!game.started) return;
 
-			var bombTimer = 2000,
+			var bombTimer = 8000,
 				strength = strength1;
 
 			setTimeout(function()
