@@ -286,32 +286,34 @@ var rp = require('request-promise');
 		socket.on('disconnect', function()
 		{
 			console.log("disconnect");
+
 			if (!gameId) return;
 
 			var game = games[gameId];
 
 			if (!game) return;
+			if(game.players[0].alive==true && game.players[1].alive==true ){
+				console.log(	 game.players);
 
-			game.players.forEach(function(player, index)
-			{
-				if (player.id == socketId)
-				{
-					this.splice(index, 1);
-					rp({
-						url:"http://localhost:8888/left",
-						method: "POST",
-						headers: {
-								'Content-Type': 'application/json'
-						},
-						json: {
+						rp({
+							url:"http://localhost:8888/left",
+							method: "POST",
+							headers: {
+									'Content-Type': 'application/json'
+							},
+							json: {
 
-								"idLoose": player.idBot
+									"idLoose": game.players[0].idBot
 
-						}
-				})
-				}
+							}
+					}).then(function(body){
+	            console.log(body);
+	         })
+			}
 
-			}, game.players);
+
+
+
 
 		});
 
