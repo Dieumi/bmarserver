@@ -310,7 +310,7 @@ var testing;
 
 
 						rp({
-							url:"http://localhost:8888/left",
+							url:"https://bomberbot1.herokuapp.com/left",
 							method: "POST",
 							headers: {
 									'Content-Type': 'application/json'
