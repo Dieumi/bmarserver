@@ -136,7 +136,7 @@ var server = require('http').Server(app);
 		socket.on('action',function(playername){
 			setTimeout(function(){
 						io.sockets.emit('action');
-			}, 3000);
+			},1500);
 
 
 		})
